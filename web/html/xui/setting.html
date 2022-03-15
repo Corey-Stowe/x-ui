@@ -32,32 +32,32 @@
             <a-spin :spinning="spinning" :delay="500" tip="loading">
                 <a-space direction="vertical">
                     <a-space direction="horizontal">
-                        <a-button type="primary" :disabled="saveBtnDisable" @click="updateAllSetting">保存配置</a-button>
-                        <a-button type="danger" :disabled="!saveBtnDisable" @click="restartPanel">重启面板</a-button>
+                        <a-button type="primary" :disabled="saveBtnDisable" @click="updateAllSetting">Sắp xếp bảo quản</a-button>
+                        <a-button type="danger" :disabled="!saveBtnDisable" @click="restartPanel">Khởi động lại</a-button>
                     </a-space>
                     <a-tabs default-active-key="1">
-                        <a-tab-pane key="1" tab="面板配置">
+                        <a-tab-pane key="1" tab="Cấu hình bảng điều khiển">
                             <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="text" title="面板监听 IP" desc="默认留空监听所有 IP，重启面板生效" v-model="allSetting.webListen"></setting-list-item>
-                                <setting-list-item type="number" title="面板监听端口" desc="重启面板生效" v-model.number="allSetting.webPort"></setting-list-item>
-                                <setting-list-item type="text" title="面板证书公钥文件路径" desc="填写一个 '/' 开头的绝对路径，重启面板生效" v-model="allSetting.webCertFile"></setting-list-item>
-                                <setting-list-item type="text" title="面板证书密钥文件路径" desc="填写一个 '/' 开头的绝对路径，重启面板生效" v-model="allSetting.webKeyFile"></setting-list-item>
-                                <setting-list-item type="text" title="面板 url 根路径" desc="必须以 '/' 开头，以 '/' 结尾，重启面板生效" v-model="allSetting.webBasePath"></setting-list-item>
+                                <setting-list-item type="text" title="Bảng điều khiển nghe IP" desc="Để trống theo mặc định để theo dõi tất cả các IP, khởi động lại bảng để có hiệu lực" v-model="allSetting.webListen"></setting-list-item>
+                                <setting-list-item type="number" title="Cổng nghe bảng điều khiển" desc="Khởi động lại bảng điều khiển để có hiệu lực" v-model.number="allSetting.webPort"></setting-list-item>
+                                <setting-list-item type="text" title="Đường dẫn tệp khóa công khai của chứng chỉ bảng điều khiển" desc="Điền vào một đường dẫn tuyệt đối bắt đầu bằng '/', khởi động lại bảng điều khiển để có hiệu lực" v-model="allSetting.webCertFile"></setting-list-item>
+                                <setting-list-item type="text" title="Đường dẫn tệp khóa chứng chỉ bảng điều khiển" desc="Điền vào một đường dẫn tuyệt đối bắt đầu bằng '/', khởi động lại bảng điều khiển để có hiệu lực" v-model="allSetting.webKeyFile"></setting-list-item>
+                                <setting-list-item type="text" title="đường dẫn gốc url bảng điều khiển" desc="Phải bắt đầu bằng '/' và kết thúc bằng '/', khởi động lại bảng để có hiệu lực" v-model="allSetting.webBasePath"></setting-list-item>
                             </a-list>
                         </a-tab-pane>
-                        <a-tab-pane key="2" tab="用户设置">
+                        <a-tab-pane key="2" tab="thiết lập người dùng">
                             <a-form style="background: white; padding: 20px">
-                                <a-form-item label="原用户名">
+                                <a-form-item label="tên người dùng ban đầu">
                                     <a-input v-model="user.oldUsername" style="max-width: 300px"></a-input>
                                 </a-form-item>
-                                <a-form-item label="原密码">
+                                <a-form-item label="Mật khẩu cũ">
                                     <a-input type="password" v-model="user.oldPassword"
                                              style="max-width: 300px"></a-input>
                                 </a-form-item>
-                                <a-form-item label="新用户名">
+                                <a-form-item label="tên đăng nhập mới">
                                     <a-input v-model="user.newUsername" style="max-width: 300px"></a-input>
                                 </a-form-item>
-                                <a-form-item label="新密码">
+                                <a-form-item label="mật khẩu mới">
                                     <a-input type="password" v-model="user.newPassword"
                                              style="max-width: 300px"></a-input>
                                 </a-form-item>
@@ -66,14 +66,14 @@
                                 </a-form-item>
                             </a-form>
                         </a-tab-pane>
-                        <a-tab-pane key="3" tab="xray 相关设置">
+                        <a-tab-pane key="3" tab="cài đặt liên quan đến xray">
                             <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="textarea" title="xray 配置模版" desc="以该模版为基础生成最终的 xray 配置文件，重启面板生效" v-model="allSetting.xrayTemplateConfig"></setting-list-item>
+                                <setting-list-item type="textarea" title="mẫu cấu hình xray" desc="Tạo tệp cấu hình xray cuối cùng dựa trên mẫu này, khởi động lại bảng điều khiển để có hiệu lực" v-model="allSetting.xrayTemplateConfig"></setting-list-item>
                             </a-list>
                         </a-tab-pane>
-                        <a-tab-pane key="4" tab="其他设置">
+                        <a-tab-pane key="4" tab="các thiết lập khác">
                             <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="text" title="时区" desc="定时任务按照该时区的时间运行，重启面板生效" v-model="allSetting.timeLocation"></setting-list-item>
+                                <setting-list-item type="text" title="时区" desc="Tác vụ đã lên lịch chạy theo thời gian trong múi giờ này và khởi động lại bảng điều khiển để có hiệu lực." v-model="allSetting.timeLocation"></setting-list-item>
                             </a-list>
                         </a-tab-pane>
                     </a-tabs>
@@ -130,10 +130,10 @@
             async restartPanel() {
                 await new Promise(resolve => {
                     this.$confirm({
-                        title: '重启面板',
-                        content: '确定要重启面板吗？点击确定将于 3 秒后重启，若重启后无法访问面板，请前往服务器查看面板日志信息',
-                        okText: '确定',
-                        cancelText: '取消',
+                        title: 'khởi động lại',
+                        content: 'Bạn có chắc chắn muốn khởi động lại bảng điều khiển không? Nhấn OK để khởi động lại sau 3 giây. Nếu bạn không thể truy cập bảng điều khiển sau khi khởi động lại, vui lòng truy cập máy chủ để xem thông tin nhật ký bảng điều khiển',
+                        okText: 'Thành công',
+                        cancelText: 'Đã hủy',
                         onOk: () => resolve(),
                     });
                 });
